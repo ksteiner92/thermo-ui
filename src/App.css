@@ -1,38 +1,356 @@
-.App {
-  text-align: center;
+:root {
+  color-scheme: light;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app-shell {
+  display: grid;
+  gap: 1.25rem;
+  margin: 0 auto;
+  max-width: 68rem;
+  padding: 1rem 1rem 4rem;
+}
+
+.hero-panel,
+.controls-panel,
+.details-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 1.75rem;
+  background: rgba(9, 17, 29, 0.76);
+  box-shadow: 0 24px 80px rgba(6, 10, 20, 0.24);
+  backdrop-filter: blur(18px);
+}
+
+.hero-panel {
+  padding: 1.4rem;
+  background:
+    radial-gradient(circle at top right, rgba(111, 216, 255, 0.28), transparent 32%),
+    radial-gradient(circle at top left, rgba(255, 153, 102, 0.18), transparent 28%),
+    rgba(9, 17, 29, 0.84);
+}
+
+.hero-topline,
+.panel-heading,
+.setpoint-header,
+.stepper-row,
+.action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.unit-toggle {
+  display: inline-flex;
+  gap: 0.35rem;
+  margin-top: 1rem;
+  padding: 0.35rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.unit-toggle-button {
+  appearance: none;
+  border: 0;
+  min-height: 2.2rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: transparent;
+  color: #eff5ff;
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.unit-toggle-button-active {
+  background: rgba(134, 237, 255, 0.18);
+  color: #baf4ff;
+}
+
+.hero-grid,
+.setpoint-grid,
+.details-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.hero-grid {
+  margin-top: 1.4rem;
+  grid-template-columns: minmax(0, 1.7fr) minmax(9rem, 1fr);
+}
+
+.controls-panel {
+  padding: 1.35rem;
+}
+
+.details-panel {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: 1rem;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--muted-text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-reading,
+.support-reading,
+.setpoint-value,
+.detail-card strong {
+  margin: 0;
+  font-family: "Avenir Next Condensed", "Segoe UI", sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.hero-reading {
+  font-size: clamp(3.4rem, 14vw, 5.8rem);
+  line-height: 0.95;
+}
+
+.hero-copy,
+.setpoint-copy,
+.setpoint-step-copy,
+.range-boundary,
+.detail-card span {
+  margin: 0.35rem 0 0;
+  color: var(--muted-text);
+}
+
+.humidity-card,
+.detail-card,
+.setpoint-card {
+  border-radius: 1.35rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.humidity-card {
+  padding: 1rem;
+  align-self: end;
+}
+
+.support-reading {
+  font-size: clamp(2rem, 8vw, 3rem);
+}
+
+.status-pill,
+.connection-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.status-cool {
+  background: rgba(88, 208, 255, 0.18);
+  color: #7ce0ff;
+}
+
+.status-error {
+  background: rgba(255, 99, 99, 0.16);
+  color: #ff9a8f;
+}
+
+.status-heat {
+  background: rgba(255, 167, 89, 0.18);
+  color: #ffb16c;
+}
+
+.status-idle,
+.status-off {
+  background: rgba(255, 255, 255, 0.12);
+  color: #eff5ff;
+}
+
+.status-stopped {
+  background: rgba(200, 214, 255, 0.14);
+  color: #b7c7ff;
+}
+
+.connection-pill {
+  background: rgba(255, 255, 255, 0.08);
+  color: #eff5ff;
+}
+
+.connection-live {
+  box-shadow: inset 0 0 0 1px rgba(95, 255, 197, 0.22);
+}
+
+.connection-reconnecting,
+.connection-connecting {
+  box-shadow: inset 0 0 0 1px rgba(255, 206, 107, 0.22);
+}
+
+.connection-offline {
+  box-shadow: inset 0 0 0 1px rgba(255, 119, 119, 0.22);
+}
+
+.panel-heading h2 {
+  margin: 0.3rem 0 0;
+  font-size: 1.6rem;
+}
+
+.message-banner {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 108, 108, 0.14);
+  color: #ffd8d8;
+}
+
+.setpoint-grid {
+  margin-top: 1.1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.setpoint-card {
+  padding: 1rem;
+}
+
+.setpoint-header {
+  align-items: flex-start;
+}
+
+.setpoint-value {
+  font-size: 2.1rem;
+  white-space: nowrap;
+}
+
+.setpoint-step-copy {
+  font-size: 0.86rem;
+}
+
+.stepper-row {
+  margin-top: 1rem;
+}
+
+.stepper-button,
+.primary-action,
+.secondary-action {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease,
+    background 160ms ease;
+}
+
+.stepper-button {
+  min-width: 3rem;
+  min-height: 3rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #f4f7ff;
+  font-size: 1.65rem;
+}
+
+.stepper-button:disabled,
+.primary-action:disabled,
+.secondary-action:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.stepper-button:not(:disabled):active,
+.primary-action:not(:disabled):active,
+.secondary-action:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+.setpoint-slider {
+  width: 100%;
+  accent-color: #7ce0ff;
+}
+
+.action-row {
+  position: sticky;
+  bottom: 0.75rem;
+  margin-top: 1.1rem;
+  padding: 0.9rem;
+  border-radius: 1.25rem;
+  background: rgba(10, 18, 30, 0.92);
+  box-shadow: 0 12px 40px rgba(3, 8, 16, 0.35);
+}
+
+.primary-action,
+.secondary-action {
+  min-height: 3.3rem;
+  border-radius: 1.05rem;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0 1.2rem;
+}
+
+.primary-action {
+  flex: 1 1 auto;
+  background: linear-gradient(135deg, #86edff, #a3ffc8);
+  color: #052033;
+}
+
+.secondary-action {
+  background: rgba(255, 255, 255, 0.08);
+  color: #eff5ff;
+}
+
+.detail-card {
+  padding: 1rem;
+}
+
+.detail-card strong {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 1.35rem;
+}
+
+@media (max-width: 760px) {
+  .hero-grid,
+  .setpoint-grid,
+  .details-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .panel-heading,
+  .action-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .primary-action,
+  .secondary-action {
+    width: 100%;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+  .hero-panel,
+  .controls-panel,
+  .details-panel {
+    animation: rise-in 380ms ease both;
+  }
+
+  .setpoint-card {
+    animation: rise-in 500ms ease both;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
+@keyframes rise-in {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    transform: translateY(12px);
   }
+
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    transform: translateY(0);
   }
 }

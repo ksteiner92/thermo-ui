@@ -1,46 +1,103 @@
-# Getting Started with Create React App
+# Thermo UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Mobile-first React frontend for the thermostat system.
 
-## Available Scripts
+## Requirements
 
-In the project directory, you can run:
+- Node.js 18, 20, or 22 recommended
+- `thermo-api` running and reachable from the browser
 
-### `npm start`
+## Scripts
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+In `thermo-ui/`:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `npm run dev`
 
-### `npm test`
+Starts the Vite development server.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Default local URL:
+
+- `http://localhost:5173`
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the production bundle into `dist/`.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run preview`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Serves the production build locally for a quick smoke test.
 
-### `npm run eject`
+### `npm test`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Runs the frontend test suite with Vitest.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Docker
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Build the image
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```bash
+docker build -t thermo-ui .
+```
 
-## Learn More
+### Run the container
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+docker run --rm -p 3000:80 thermo-ui
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The container serves the app on port `80`, so the default browser URL is:
+
+- `http://localhost:3000`
+
+### Runtime backend configuration
+
+The container can be pointed at a specific backend without rebuilding:
+
+```bash
+docker run --rm -p 3000:80 \
+  -e THERMO_UI_REST_BASE_URL=http://192.168.1.50:3001 \
+  -e THERMO_UI_WS_URL=ws://192.168.1.50:3002 \
+  thermo-ui
+```
+
+If those variables are not set, the frontend falls back to the current host on:
+
+- REST: `http://<current-host>:3001`
+- WebSocket: `ws://<current-host>:3002`
+
+### Docker Compose
+
+Use the sample file in `thermo-ui/`:
+
+```bash
+cp docker-compose.yml.sample docker-compose.yml
+docker compose up --build
+```
+
+## Backend URLs
+
+For local Vite development, the app defaults to:
+
+- REST: `http://<current-host>:3001`
+- WebSocket: `ws://<current-host>:3002`
+
+You can override those in a `.env` file:
+
+```bash
+VITE_REST_BASE_URL=http://192.168.1.50:3001
+VITE_WS_URL=ws://192.168.1.50:3002
+```
+
+That is useful when opening the UI from a phone on the same network.
+
+## Development
+
+1. Start `thermo-api`
+2. Start the frontend with `npm run dev`
+3. Open the Vite URL in a browser or on your phone
+
+If you need the dev server reachable from other devices on your LAN, run:
+
+```bash
+npm run dev -- --host
+```

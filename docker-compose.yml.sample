@@ -1,0 +1,12 @@
+services:
+  thermo-ui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    environment:
+      # Optional. If unset, the browser defaults to the same host on ports 3001/3002.
+      # Set these when the API is not reachable at the same host as the UI.
+      - THERMO_UI_REST_BASE_URL=
+      - THERMO_UI_WS_URL=
